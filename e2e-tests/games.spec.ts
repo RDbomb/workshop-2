@@ -17,10 +17,11 @@ test.describe('Game Listing and Navigation', () => {
       expect(await gameCards.count()).toBeGreaterThan(0);
     });
 
-    await test.step('Verify game cards have titles with content', async () => {
-      const gameCards = page.getByTestId('game-card');
-      await expect(gameCards.first().getByTestId('game-title')).toBeVisible();
-      await expect(gameCards.first().getByTestId('game-title')).not.toBeEmpty();
+    await test.step('Verify game cards have titles and ratings with content', async () => {
+      const firstGameCard = page.getByTestId('game-card').first();
+      await expect(firstGameCard.getByTestId('game-title')).toBeVisible();
+      await expect(firstGameCard.getByTestId('game-title')).not.toBeEmpty();
+      await expect(firstGameCard.getByTestId('game-rating')).toContainText(/\d+(\.\d+)? out of 5|No rating yet/);
     });
   });
 
